@@ -1,7 +1,8 @@
-package com.samples.tdd_tictactoe
+package com.samples.tdd_tictactoe.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.samples.tdd_tictactoe.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
