@@ -8,7 +8,19 @@
         android:id="@+id/entryFragment"
         android:name="com.samples.tdd_tictactoe.view.entry.PlayerEntryFragment"
         tools:layout="@layout/fragment_player_entry">
+        <action
+            android:id="@+id/action_entryFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.samples.tdd_tictactoe.view.game.GameBoardFragment"
+        android:label="@string/game_label"
+        tools:layout="@layout/fragment_board">
+        <argument
+            android:name="playerData"
+            app:argType="com.samples.tdd_tictactoe.model.PlayerData" />
     </fragment>
 
 </navigation>
