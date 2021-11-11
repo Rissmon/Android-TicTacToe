@@ -1,14 +1,17 @@
 package com.samples.tdd_tictactoe.view.game
 
-import androidx.fragment.app.Fragment
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.samples.tdd_tictactoe.R
+import com.samples.tdd_tictactoe.base.BaseFragment
+import com.samples.tdd_tictactoe.databinding.FragmentBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class GameBoardFragment : Fragment(R.layout.fragment_board) {
+class GameBoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board) {
     private val gameBoardFragmentArgs: GameBoardFragmentArgs by navArgs()
 
     @Inject
@@ -18,5 +21,11 @@ class GameBoardFragment : Fragment(R.layout.fragment_board) {
         provideFactory(assistedFactory, gameBoardFragmentArgs.playerData)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        with(getDataBinding()) {
+            viewModel = gameViewModel
+        }
+    }
 
 }
