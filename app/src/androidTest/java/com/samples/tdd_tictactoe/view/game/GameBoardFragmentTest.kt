@@ -88,6 +88,20 @@ class GameBoardFragmentTest {
         verifyNextPlayer(player.playerX)
     }
 
+    @Test
+    fun recyclerViewCellSelection_displayWinnerWhenFirstColumnIsSelectedBy0Player() {
+        launchFragmentInHiltContainer<GameBoardFragment>(
+            fragmentArgs,
+            themeResId = R.style.ThemeTicTacToe
+        )
+        onRecyclerViewItemClick(4)
+        onRecyclerViewItemClick(0)
+        onRecyclerViewItemClick(7)
+        onRecyclerViewItemClick(3)
+        onRecyclerViewItemClick(6)
+        verifyNextPlayer(player.playerO)
+    }
+
     private fun launchFragment() = launchFragmentInHiltContainer<GameBoardFragment>(
         fragmentArgs,
         themeResId = R.style.ThemeTicTacToe
