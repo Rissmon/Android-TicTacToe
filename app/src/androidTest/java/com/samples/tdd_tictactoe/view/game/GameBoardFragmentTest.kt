@@ -29,7 +29,8 @@ class GameBoardFragmentTest {
     private val fragmentArgs = bundleOf(
         "playerData" to player,
     )
-    private val totalCell = 9
+    private val boardSize = 3
+    private val totalCell = boardSize * boardSize
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -58,6 +59,15 @@ class GameBoardFragmentTest {
         }
         onView(withId(R.id.gameRecyclerView)).apply {
             ViewMatchers.isDisplayed()
+        }
+    }
+
+    @Test
+    fun recyclerView_displayWithExpectedItemCount() {
+        launchFragment()
+        onView(withId(R.id.gameRecyclerView)).apply {
+            ViewMatchers.isDisplayed()
+            check(matches(ViewMatchers.hasChildCount(totalCell)))
         }
     }
 

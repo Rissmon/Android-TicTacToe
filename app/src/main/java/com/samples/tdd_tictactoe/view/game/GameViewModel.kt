@@ -22,7 +22,8 @@ class GameViewModel @AssistedInject constructor(
     @Assisted private val playerData: PlayerData,
 ) : ViewModel() {
 
-    val boardState: MutableLiveData<Board> = MutableLiveData()
+    private val _boardState: MutableLiveData<Board> = MutableLiveData()
+    val boardState: MutableLiveData<Board> = _boardState
     private val _nextPlayer = MutableLiveData(playerData.playerX)
     val nextPlayer: LiveData<String> = _nextPlayer
     private val _isGameDraw = MutableLiveData(false)
@@ -42,7 +43,7 @@ class GameViewModel @AssistedInject constructor(
         boardRepository.getBoard()
             .flowOn(dispatcher)
             .collect {
-                boardState.postValue(it)
+                _boardState.postValue(it)
             }
     }
 
