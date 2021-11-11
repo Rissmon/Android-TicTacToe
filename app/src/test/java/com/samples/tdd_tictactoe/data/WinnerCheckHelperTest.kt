@@ -128,6 +128,18 @@ class WinnerCheckHelperTest {
             assertEquals(XPlayer, winnerCheckHelper.checkForWinner(board, Cell(1, 2, XSelected)))
         }
 
+    @Test
+    fun checkForWinner_returnsXPlayerIfThirdColumnHasXSelected() =
+        runBlockingTest {
+            val board = Board(cells = cleanBoardCells.toMutableList().apply {
+                set(2, Cell(2, 0, XSelected))
+                set(0, Cell(0, 0, OSelected))
+                set(5, Cell(2, 1, XSelected))
+                set(3, Cell(0, 1, OSelected))
+                set(8, Cell(2, 2, XSelected))
+            })
+            assertEquals(XPlayer, winnerCheckHelper.checkForWinner(board, Cell(2, 2, XSelected)))
+        }
 
     @Test
     fun checkForWinner_returnsOPlayerIfRightDiagonalHasOSelected() =
