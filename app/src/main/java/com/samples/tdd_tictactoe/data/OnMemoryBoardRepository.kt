@@ -1,13 +1,15 @@
 package com.samples.tdd_tictactoe.data
 
+import com.samples.tdd_tictactoe.di.BoardSize
 import com.samples.tdd_tictactoe.model.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
 
 
-class OnMemoryBoardRepository constructor(
+class OnMemoryBoardRepository @Inject constructor(
     private val winnerCheckHelper: WinnerCheckHelper,
-    private val boardSize: Int
+    @BoardSize private val boardSize: Int
 ) : BoardRepository {
 
     private var boardFlow: MutableStateFlow<Board> = MutableStateFlow(getClearBoard())

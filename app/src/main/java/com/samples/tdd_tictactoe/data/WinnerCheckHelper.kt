@@ -1,11 +1,13 @@
 package com.samples.tdd_tictactoe.data
 
+import com.samples.tdd_tictactoe.di.BackgroundDispatcher
 import com.samples.tdd_tictactoe.model.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import java.lang.Math.sqrt
+import javax.inject.Inject
 
-class WinnerCheckHelper constructor(private val dispatcher: CoroutineDispatcher) {
+class WinnerCheckHelper @Inject constructor(@BackgroundDispatcher private val dispatcher: CoroutineDispatcher) {
 
     /**
      * Checks in a worker thread if the last selected cell is the 3rd in a
