@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_space">16dp</dimen>
+    <dimen name="default_small_space">8dp</dimen>
+    <dimen name="font_30">30sp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="font_20">20sp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_25">25dp</dimen>
+    <dimen name="font_18">18sp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+
+    <!--  Board dimens  -->
+    <dimen name="cell_size">80dp</dimen>
+    <dimen name="clear_cell_elevation">30dp</dimen>
+    <dimen name="selected_cell_elevation">2dp</dimen>
+</resources>
