@@ -13,7 +13,7 @@ class PlayerEntryFragmentTest {
 
     @Test
     fun verifyViews_displayedWithCorrectInformation() {
-        launchFragmentInContainer<PlayerEntryFragment>(themeResId = R.style.ThemeTicTacToe)
+        launchFragment()
         onView(withId(R.id.textViewLetsBegin)).isDisplayed()
         onView(withId(R.id.textViewLetsBegin)).withText(R.string.entry_title_label)
         onView(withId(R.id.textViewDescriptionLabel)).isDisplayed()
@@ -27,7 +27,7 @@ class PlayerEntryFragmentTest {
 
     @Test
     fun shouldShowErrorMessage_WhenAllInputFieldsAreEmpty() {
-        launchFragmentInContainer<PlayerEntryFragment>(themeResId = R.style.ThemeTicTacToe)
+        launchFragment()
         onView(withId(R.id.buttonPlay)).perform(ViewActions.click())
         validateSnackbarMessage(R.string.enter_all_fields)
     }
@@ -36,7 +36,7 @@ class PlayerEntryFragmentTest {
     @Test
     fun shouldShowErrorMessage_WhenEitherOfTheInputFieldsAreEmpty() {
         //Validate Player 1
-        launchFragmentInContainer<PlayerEntryFragment>(null, R.style.ThemeTicTacToe)
+        launchFragment()
         onView(withId(R.id.editTextPlayer1)).perform(ViewActions.typeText(PLAYER1))
         onView(withId(R.id.buttonPlay)).perform(ViewActions.click())
         validateSnackbarMessage(R.string.enter_all_fields)
@@ -47,5 +47,8 @@ class PlayerEntryFragmentTest {
         onView(withId(R.id.buttonPlay)).perform(ViewActions.click())
         validateSnackbarMessage(R.string.enter_all_fields)
     }
+
+    private fun launchFragment() =
+        launchFragmentInContainer<PlayerEntryFragment>(themeResId = R.style.ThemeTicTacToe)
 
 }
