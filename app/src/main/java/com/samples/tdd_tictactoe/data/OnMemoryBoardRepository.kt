@@ -17,9 +17,17 @@ class OnMemoryBoardRepository constructor(
      */
     override suspend fun getBoard(): StateFlow<Board> = boardFlow
 
-    override suspend fun updateCellSelection(cell: Cell, playerType: PlayerType): Result<Unit> {
-        TODO("Not yet implemented")
-    }
+    /**
+     * Make cell selection in board.
+     * @param cell: The cell which the user( {@param player)  selected.
+     */
+    override suspend fun updateCellSelection(cell: Cell, playerType: PlayerType) =
+        if (!cell.isClearInBoard()) {
+            Result.failure(IllegalArgumentException("Cell was already selected"))
+        } else {
+            applySelectedStateForPlayer(cell, playerType)
+        }
+
 
     override suspend fun clearCellSelection() {
         TODO("Not yet implemented")
@@ -45,6 +53,39 @@ class OnMemoryBoardRepository constructor(
             )
         }
         return Board(cellList)
+    }
+
+    /**
+     * Check to identify the cell is already in selected sate
+     */
+    private fun Cell.isClearInBoard(): Boolean =
+        boardFlow.value.cells.contains(this.copy(state = Clear))
+
+    /**
+     * Removes the cell that changes state if it was not previously selected. Then added it
+     * at the list with the new state.
+     */
+    private fun applySelectedStateForPlayer(
+        cell: Cell,
+        currentPlayerType: PlayerType
+    ): Result<Unit> {
+        with(boardFlow.value.cells.toMutableList()) {
+            val newCell = cell.copy(
+                state = when (currentPlayerType) {
+                    OPlayer -> OSelected
+                    XPlayer -> XSelected
+                }
+            )
+            val index = indexOf(cell)
+            remove(cell)
+            add(index, newCell)
+            nextPlayerType = when (currentPlayerType) {
+                is XPlayer -> OPlayer
+                is OPlayer -> XPlayer
+            }
+            boardFlow.value = Board(this)
+            return Result.success(Unit)
+        }
     }
 
 }
