@@ -28,9 +28,11 @@ class OnMemoryBoardRepository constructor(
             applySelectedStateForPlayer(cell, playerType)
         }
 
-
+    /**
+     * Clear the board to initial state(Game starting state)
+     */
     override suspend fun clearCellSelection() {
-        TODO("Not yet implemented")
+        boardFlow.value = getClearBoard()
     }
 
     override suspend fun getNextPlayer(): PlayerType {

@@ -52,4 +52,15 @@ class OnMemoryBoardRepositoryTest {
             assertEquals(1, cells.filter { it.state == OSelected }.size)
         }
     }
+
+    @Test
+    fun clearCellSelection_willClearTheBoardToInitialState() =
+        runBlockingTest {
+            repository.clearCellSelection()
+            val board = repository.getBoard().first()
+            assertEquals(cellSize, board.cells.filter { it.state == Clear }.size)
+            assertNull(board.cells.find { it.state == XSelected })
+            assertNull(board.cells.find { it.state == OSelected })
+        }
+
 }
