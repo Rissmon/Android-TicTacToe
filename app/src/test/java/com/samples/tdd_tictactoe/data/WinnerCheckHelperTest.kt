@@ -34,4 +34,19 @@ class WinnerCheckHelperTest {
             assertEquals(OPlayer, winnerCheckHelper.checkForWinner(board, Cell(2, 2, OSelected)))
         }
 
+    @Test
+    fun checkForWinner_returnsOPlayerIfLeftDiagonalHasOSelected() =
+        runBlockingTest {
+            val board = Board(cells = cleanBoardCells.toMutableList().apply {
+                set(1, Cell(1, 0, XSelected))
+                set(2, Cell(2, 0, OSelected))
+                set(3, Cell(0, 1, XSelected))
+                set(4, Cell(1, 1, OSelected))
+                set(5, Cell(2, 1, XSelected))
+                set(6, Cell(0, 2, OSelected))
+
+            })
+            assertEquals(OPlayer, winnerCheckHelper.checkForWinner(board, Cell(0, 2, OSelected)))
+        }
+
 }

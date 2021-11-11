@@ -26,7 +26,9 @@ class WinnerCheckHelper constructor(private val dispatcher: CoroutineDispatcher)
             null
         }
 
-    private fun Board.checkLineInNeighboursForCell(cell: Cell) = checkLineDiagonals(cell)
+    private fun Board.checkLineInNeighboursForCell(cell: Cell) =
+        checkLineDiagonals(cell)
+
 
     private fun Board.checkLineDiagonals(cell: Cell): Boolean {
         val boardSideSize = sqrt(cells.size.toDouble()).toInt()
@@ -45,7 +47,22 @@ class WinnerCheckHelper constructor(private val dispatcher: CoroutineDispatcher)
             return true
         }
 
-        return false
+        val selectedCellInDiagonalLeft = mutableListOf<Cell>()
+
+        var columnIndex = 2
+        for (rowIndex in 0 until boardSideSize) {
+            val cellInDiagonal = cells.find {
+                it.row == rowIndex &&
+                        it.column == columnIndex &&
+                        it.state == cell.state
+            }
+            columnIndex--
+            if (cellInDiagonal != null) {
+                selectedCellInDiagonalLeft.add(cell)
+            }
+        }
+
+        return selectedCellInDiagonalLeft.size >= 3
     }
 
     private fun Cell.getPlayer() =
