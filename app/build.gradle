@@ -62,4 +62,5 @@ dependencies {
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1'
     debugImplementation  "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1"
+    testImplementation "io.mockk:mockk:1.12.0"
 }
