@@ -5,10 +5,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.samples.tdd_tictactoe.R
-import com.samples.tdd_tictactoe.utils.isClickable
-import com.samples.tdd_tictactoe.utils.isDisplayed
-import com.samples.tdd_tictactoe.utils.validateSnackbarMessage
-import com.samples.tdd_tictactoe.utils.withText
+import com.samples.tdd_tictactoe.utils.*
 import org.junit.Test
 
 
@@ -31,6 +28,22 @@ class PlayerEntryFragmentTest {
     @Test
     fun shouldShowErrorMessage_WhenAllInputFieldsAreEmpty() {
         launchFragmentInContainer<PlayerEntryFragment>(themeResId = R.style.ThemeTicTacToe)
+        onView(withId(R.id.buttonPlay)).perform(ViewActions.click())
+        validateSnackbarMessage(R.string.enter_all_fields)
+    }
+
+
+    @Test
+    fun shouldShowErrorMessage_WhenEitherOfTheInputFieldsAreEmpty() {
+        //Validate Player 1
+        launchFragmentInContainer<PlayerEntryFragment>(null, R.style.ThemeTicTacToe)
+        onView(withId(R.id.editTextPlayer1)).perform(ViewActions.typeText(PLAYER1))
+        onView(withId(R.id.buttonPlay)).perform(ViewActions.click())
+        validateSnackbarMessage(R.string.enter_all_fields)
+
+        //Validate Player 2
+        onView(withId(R.id.editTextPlayer1)).perform(ViewActions.clearText())
+        onView(withId(R.id.editTextPlayer2)).perform(ViewActions.typeText(PLAYER2))
         onView(withId(R.id.buttonPlay)).perform(ViewActions.click())
         validateSnackbarMessage(R.string.enter_all_fields)
     }
