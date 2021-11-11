@@ -36,7 +36,7 @@ class OnMemoryBoardRepository constructor(
     }
 
     override suspend fun getNextPlayer(): PlayerType {
-        TODO("Not yet implemented")
+        return nextPlayerType
     }
 
     /**

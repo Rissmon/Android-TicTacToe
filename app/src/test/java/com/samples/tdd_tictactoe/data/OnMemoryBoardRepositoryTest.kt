@@ -5,6 +5,7 @@ import com.samples.tdd_tictactoe.model.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -61,6 +62,25 @@ class OnMemoryBoardRepositoryTest {
             assertEquals(cellSize, board.cells.filter { it.state == Clear }.size)
             assertNull(board.cells.find { it.state == XSelected })
             assertNull(board.cells.find { it.state == OSelected })
+        }
+
+    @Test
+    fun getNextPlayer_returningXPlayer() =
+        runBlockingTest {
+            repository.updateCellSelection(Cell(0, 0), XPlayer)
+            repository.updateCellSelection(Cell(1, 0), OPlayer)
+            repository.updateCellSelection(Cell(2, 0), XPlayer)
+            repository.updateCellSelection(Cell(0, 1), OPlayer)
+            Assert.assertTrue(repository.getNextPlayer() is XPlayer)
+        }
+
+    @Test
+    fun getNextPlayer_returnOPlayer() =
+        runBlockingTest {
+            repository.updateCellSelection(Cell(0, 0), XPlayer)
+            repository.updateCellSelection(Cell(1, 0), OPlayer)
+            repository.updateCellSelection(Cell(2, 0), XPlayer)
+            Assert.assertTrue(repository.getNextPlayer() is OPlayer)
         }
 
 }
