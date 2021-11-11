@@ -6,6 +6,7 @@ import com.samples.tdd_tictactoe.model.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -18,6 +19,25 @@ class WinnerCheckHelperTest {
     private val testDispatcher = TestCoroutineDispatcher()
 
     private val winnerCheckHelper = WinnerCheckHelper(testDispatcher)
+
+    @Test
+    fun checkForWinner_returnNullIfGameResultIsDraw() =
+        runBlockingTest {
+            val board = Board(
+                cells = listOf(
+                    Cell(0, 0, XSelected),
+                    Cell(0, 1, OSelected),
+                    Cell(0, 2, XSelected),
+                    Cell(1, 0, OSelected),
+                    Cell(1, 1, XSelected),
+                    Cell(1, 2, OSelected),
+                    Cell(2, 1, XSelected),
+                    Cell(2, 2, OSelected),
+                    Cell(2, 0, XSelected),
+                )
+            )
+            Assert.assertNull(winnerCheckHelper.checkForWinner(board, Cell(2, 2, XSelected)))
+        }
 
     @Test
     fun checkForWinner_returnsXPlayerIfFirstRowHasXSelected() =
