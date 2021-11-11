@@ -25,4 +25,9 @@ class PlayerEntryViewModelTest {
         playerEntryViewModel.playerO.value = ""
         assertTrue(playerEntryViewModel.isPlayerFieldNullOrEmpty)
     }
+
+    @Test
+    fun isPlayerFieldNullOrEmpty_returnTrueIfPlayerNamesAreNull() {
+        assertTrue(playerEntryViewModel.isPlayerFieldNullOrEmpty)
+    }
 }
