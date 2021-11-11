@@ -9,15 +9,17 @@ import com.samples.tdd_tictactoe.common.extension.empty
 import com.samples.tdd_tictactoe.data.BoardRepository
 import com.samples.tdd_tictactoe.di.BackgroundDispatcher
 import com.samples.tdd_tictactoe.model.*
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
-class GameViewModel constructor(
+class GameViewModel @AssistedInject constructor(
     private val boardRepository: BoardRepository,
     @BackgroundDispatcher private val dispatcher: CoroutineDispatcher,
-    private val playerData: PlayerData,
+    @Assisted private val playerData: PlayerData,
 ) : ViewModel() {
 
     val boardState: MutableLiveData<Board> = MutableLiveData()
