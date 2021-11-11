@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,9 +10,94 @@
             type="com.samples.tdd_tictactoe.view.game.GameViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textViewHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_space"
+                android:text="@string/board_screen_title"
+                android:textAppearance="?textAppearanceHeadline3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewNextPlayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_space"
+                android:drawablePadding="@dimen/default_small_space"
+                android:gravity="center"
+                android:padding="@dimen/default_space"
+                android:text="@{@string/next_player_title_label(viewModel.nextPlayer)}"
+                android:textAppearance="?textAppearanceHeadline5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewHeader" />
+
+            <TextView
+                android:id="@+id/textViewGameResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_space"
+                android:drawablePadding="@dimen/default_small_space"
+                android:gravity="center"
+                android:padding="@dimen/default_space"
+                android:textAppearance="?textAppearanceHeadline6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewHeader"
+                tools:text="This is the game result"
+                tools:visibility="visible" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/boardTopBarrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="textViewNextPlayer,textViewGameResult" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gameRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/default_space"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/boardTopBarrier"
+                app:layout_constraintVertical_bias="0" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/boardBottomBarrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:barrierDirection="top"
+                app:constraint_referenced_ids="buttonRestartGame" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonRestartGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_space"
+                android:text="@string/restart_game_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gameRecyclerView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </layout>

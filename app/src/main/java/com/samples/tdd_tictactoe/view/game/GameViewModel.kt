@@ -23,7 +23,7 @@ class GameViewModel @AssistedInject constructor(
 ) : ViewModel() {
 
     val boardState: MutableLiveData<Board> = MutableLiveData()
-    private val _nextPlayer = MutableLiveData(String.empty())
+    private val _nextPlayer = MutableLiveData(playerData.playerX)
     val nextPlayer: LiveData<String> = _nextPlayer
     private val _isGameDraw = MutableLiveData(false)
     val isGameDraw: LiveData<Boolean> = _isGameDraw
