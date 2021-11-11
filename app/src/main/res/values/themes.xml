@@ -26,4 +26,9 @@
         <item name="placeholderTextColor">@color/white</item>
     </style>
 
+    <style name="Cell" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">@dimen/clear_cell_elevation</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
 </resources>

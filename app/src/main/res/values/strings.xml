@@ -11,4 +11,5 @@
     <string name="board_screen_title">TIC TAC TOE</string>
     <string name="next_player_title_label">Next Player: %1s</string>
     <string name="restart_game_button">Restart the game</string>
+    <string name="cell_item">Cell Item</string>
 </resources>

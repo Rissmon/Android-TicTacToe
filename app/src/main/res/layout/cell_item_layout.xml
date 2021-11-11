@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="cell"
+            type="com.samples.tdd_tictactoe.model.Cell" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cellItemView"
+        style="@style/Cell"
+        cellItemView="@{cell}"
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_margin="@dimen/default_small_space"
+        app:rippleColor="@android:color/transparent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/cell_item"
+            tools:src="@drawable/ic_o" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
