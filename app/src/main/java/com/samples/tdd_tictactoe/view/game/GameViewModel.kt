@@ -22,6 +22,8 @@ class GameViewModel constructor(
 
     val boardState: MutableLiveData<Board> = MutableLiveData()
 
+    private val _isGameDraw = MutableLiveData(false)
+    val isGameDraw: LiveData<Boolean> = _isGameDraw
     private val _isGameFinished = MutableLiveData(false)
     val isGameFinished: LiveData<Boolean> = _isGameFinished
     private val _gameResult = MutableLiveData(String.empty())
@@ -55,6 +57,7 @@ class GameViewModel constructor(
         when (boardRepository.getGameStatus(cell)) {
             GameState.Draw -> {
                 _isGameFinished.value = true
+                _isGameDraw.value = true
             }
             GameState.Ongoing -> updateTurn()
             is GameState.Winner -> {
@@ -70,6 +73,8 @@ class GameViewModel constructor(
     fun updateTurn() {
         _isGameFinished.value = false
         _gameResult.value = String.empty()
+        _isGameDraw.value = false
+
     }
 
 

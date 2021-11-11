@@ -81,4 +81,25 @@ class GameViewModelTest {
             assertEquals(gameViewModel.isGameFinished.getOrAwaitValue(), false)
         }
 
+    @Test
+    fun onCellClicked_checkGameStateReturnsDraw() =
+        runBlockingTest {
+            val expectedPlayer = XPlayer
+            coEvery { boardRepository.getNextPlayer() } returns expectedPlayer
+            val givenCell = Cell(0, 0, Clear)
+            coEvery {
+                boardRepository.updateCellSelection(
+                    givenCell,
+                    expectedPlayer
+                )
+            } returns Result.success(Unit)
+
+            coEvery { boardRepository.getGameStatus(givenCell) } returns GameState.Draw
+
+            createGameViewModel()
+            gameViewModel.onCellClicked(givenCell)
+            assertEquals(gameViewModel.isGameDraw.getOrAwaitValue(), true)
+            assertEquals(gameViewModel.isGameFinished.getOrAwaitValue(), true)
+        }
+
 }
