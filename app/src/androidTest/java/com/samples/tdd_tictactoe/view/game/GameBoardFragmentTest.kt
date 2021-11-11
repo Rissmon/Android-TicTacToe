@@ -3,6 +3,7 @@ package com.samples.tdd_tictactoe.view.game
 import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
@@ -144,6 +145,25 @@ class GameBoardFragmentTest {
         onRecyclerViewItemClick(5)
         onRecyclerViewItemClick(2)
         onView(withId(R.id.textViewGameResult)).check(matches(Matchers.not(ViewMatchers.isDisplayed())))
+    }
+
+    @Test
+    fun restartButton_ValidateThePlayerReset() {
+        launchFragment()
+        onRecyclerViewItemClick(0)
+        onRecyclerViewItemClick(3)
+        onRecyclerViewItemClick(6)
+        onRecyclerViewItemClick(4)
+        onRecyclerViewItemClick(1)
+        onRecyclerViewItemClick(7)
+        onRecyclerViewItemClick(5)
+        onRecyclerViewItemClick(2)
+        onRecyclerViewItemClick(8)
+        onView(withId(R.id.textViewGameResult)).apply {
+            withText(R.string.game_finish_with_draw)
+        }
+        onView(withId(R.id.buttonRestartGame)).perform(ViewActions.click())
+        verifyNextPlayer(player.playerX)
     }
 
     private fun launchFragment() = launchFragmentInHiltContainer<GameBoardFragment>(
