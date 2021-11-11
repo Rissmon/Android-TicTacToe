@@ -1,3 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">TDD-TicTacToe</string>
+
+    <string name="entry_title_label">Let\'s Begin</string>
+    <string name="enter_your_name">Enter the player</string>
+    <string name="player1_hint" tools:ignore="Typos">player1</string>
+    <string name="player2_hint">player2</string>
+    <string name="entry">Player Entry</string>
 </resources>
