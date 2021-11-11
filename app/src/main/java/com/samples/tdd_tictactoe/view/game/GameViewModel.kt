@@ -44,6 +44,13 @@ class GameViewModel constructor(
             }
     }
 
+    fun onRestartButtonClicked() {
+        viewModelScope.launch {
+            boardRepository.clearCellSelection()
+            updateTurn(XPlayer)
+        }
+    }
+
     fun onCellClicked(cell: Cell) {
         viewModelScope.launch {
             val currentPlayerType: PlayerType = boardRepository.getNextPlayer()

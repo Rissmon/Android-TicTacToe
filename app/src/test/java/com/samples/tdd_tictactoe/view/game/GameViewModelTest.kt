@@ -2,6 +2,7 @@ package com.samples.tdd_tictactoe.view.game
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.samples.tdd_tictactoe.common.MainCoroutineRule
+import com.samples.tdd_tictactoe.common.extension.empty
 import com.samples.tdd_tictactoe.common.getOrAwaitValue
 import com.samples.tdd_tictactoe.data.BoardRepository
 import com.samples.tdd_tictactoe.model.*
@@ -112,5 +113,20 @@ class GameViewModelTest {
             gameViewModel.updateTurn(expectedPlayer)
             assertEquals(gameViewModel.nextPlayer.getOrAwaitValue(), playerData.playerX)
         }
+
+    @Test
+    fun onRestartButtonClicked_clearsTheBoardAndSetNexPlayerToXPlayer() = runBlockingTest {
+        createGameViewModel()
+        gameViewModel.onRestartButtonClicked()
+        coVerify { boardRepository.clearCellSelection() }
+        assetClearState(playerData.playerX)
+    }
+
+    private fun assetClearState(player: String) {
+        assertEquals(gameViewModel.nextPlayer.getOrAwaitValue(), player)
+        assertEquals(gameViewModel.isGameDraw.getOrAwaitValue(), false)
+        assertEquals(gameViewModel.isGameFinished.getOrAwaitValue(), false)
+        assertEquals(gameViewModel.gameResult.getOrAwaitValue(), String.empty())
+    }
 
 }
