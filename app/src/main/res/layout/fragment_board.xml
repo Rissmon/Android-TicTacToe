@@ -52,6 +52,7 @@
                 android:drawablePadding="@dimen/default_small_space"
                 android:gravity="center"
                 android:padding="@dimen/default_space"
+                android:text="@{viewModel.isGameDraw()?@string/game_finish_with_draw:@string/game_finish_with_winner(viewModel.gameResult)}"
                 android:textAppearance="?textAppearanceHeadline6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

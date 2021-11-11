@@ -4,23 +4,26 @@ import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSubstring
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
+import com.google.android.material.card.MaterialCardView
 import com.samples.tdd_tictactoe.R
 import com.samples.tdd_tictactoe.model.PlayerData
-import com.samples.tdd_tictactoe.utils.PLAYER1
-import com.samples.tdd_tictactoe.utils.PLAYER2
-import com.samples.tdd_tictactoe.utils.launchFragmentInHiltContainer
-import com.samples.tdd_tictactoe.utils.withText
+import com.samples.tdd_tictactoe.utils.*
+import com.samples.tdd_tictactoe.view.game.adapter.GameAdapter
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
+@RunWith(AndroidJUnit4ClassRunner::class)
 @HiltAndroidTest
 class GameBoardFragmentTest {
     var appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -71,8 +74,50 @@ class GameBoardFragmentTest {
         }
     }
 
+    @Test
+    fun recyclerViewCellSelection_displayWinnerWhenFirstColumnIsSelectedByXPlayer() {
+        launchFragmentInHiltContainer<GameBoardFragment>(
+            fragmentArgs,
+            themeResId = R.style.ThemeTicTacToe
+        )
+        onRecyclerViewItemClick(0)
+        onRecyclerViewItemClick(4)
+        onRecyclerViewItemClick(3)
+        onRecyclerViewItemClick(7)
+        onRecyclerViewItemClick(6)
+        verifyNextPlayer(player.playerX)
+    }
+
     private fun launchFragment() = launchFragmentInHiltContainer<GameBoardFragment>(
         fragmentArgs,
         themeResId = R.style.ThemeTicTacToe
     )
+
+
+    private fun verifyNextPlayer(player: String) {
+        onView(withId(R.id.textViewNextPlayer)).apply {
+            check(
+                matches(
+                    withSubstring(
+                        appContext.getString(
+                            R.string.next_player_title_label,
+                            player
+                        )
+                    )
+                )
+            )
+        }
+    }
+
+    private fun onRecyclerViewItemClick(index: Int) {
+        onView(withId(R.id.gameRecyclerView)).apply {
+            perform(
+                RecyclerViewActions.actionOnItemAtPosition<GameAdapter.MyViewHolder>(
+                    index,
+                    recyclerChildAction<MaterialCardView>(R.id.cellItemView) { callOnClick() }
+                )
+            )
+        }
+    }
+
 }
