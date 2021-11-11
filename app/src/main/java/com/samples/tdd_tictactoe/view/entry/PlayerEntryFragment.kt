@@ -1,6 +1,7 @@
 package com.samples.tdd_tictactoe.view.entry
 
-import androidx.fragment.app.Fragment
 import com.samples.tdd_tictactoe.R
+import com.samples.tdd_tictactoe.base.BaseFragment
+import com.samples.tdd_tictactoe.databinding.FragmentPlayerEntryBinding
 
-class PlayerEntryFragment : Fragment(R.layout.fragment_player_entry)
+class PlayerEntryFragment : BaseFragment<FragmentPlayerEntryBinding>(R.layout.fragment_player_entry)
