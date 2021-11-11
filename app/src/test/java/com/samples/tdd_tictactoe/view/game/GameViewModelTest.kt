@@ -104,4 +104,13 @@ class GameViewModelTest {
             assertEquals(gameViewModel.isGameFinished.getOrAwaitValue(), true)
         }
 
+    @Test
+    fun updateTurn_verifyPlayer() =
+        runBlockingTest {
+            val expectedPlayer = XPlayer
+            createGameViewModel()
+            gameViewModel.updateTurn(expectedPlayer)
+            assertEquals(gameViewModel.nextPlayer.getOrAwaitValue(), playerData.playerX)
+        }
+
 }

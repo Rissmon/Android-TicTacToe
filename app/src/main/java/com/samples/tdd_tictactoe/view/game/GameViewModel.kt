@@ -21,7 +21,8 @@ class GameViewModel constructor(
 ) : ViewModel() {
 
     val boardState: MutableLiveData<Board> = MutableLiveData()
-
+    private val _nextPlayer = MutableLiveData(String.empty())
+    val nextPlayer: LiveData<String> = _nextPlayer
     private val _isGameDraw = MutableLiveData(false)
     val isGameDraw: LiveData<Boolean> = _isGameDraw
     private val _isGameFinished = MutableLiveData(false)
@@ -59,7 +60,7 @@ class GameViewModel constructor(
                 _isGameFinished.value = true
                 _isGameDraw.value = true
             }
-            GameState.Ongoing -> updateTurn()
+            GameState.Ongoing -> updateTurn(boardRepository.getNextPlayer())
             is GameState.Winner -> {
                 _isGameFinished.value = true
                 _gameResult.value = when (currentPlayerType) {
@@ -70,13 +71,15 @@ class GameViewModel constructor(
         }
     }
 
-    fun updateTurn() {
+    fun updateTurn(playerType: PlayerType) {
+        _nextPlayer.value = when (playerType) {
+            XPlayer -> playerData.playerX
+            OPlayer -> playerData.playerO
+        }
         _isGameFinished.value = false
         _gameResult.value = String.empty()
         _isGameDraw.value = false
-
     }
-
 
 }
 
