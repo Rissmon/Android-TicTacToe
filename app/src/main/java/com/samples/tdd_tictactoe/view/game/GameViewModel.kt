@@ -55,6 +55,7 @@ class GameViewModel @AssistedInject constructor(
     }
 
     fun onCellClicked(cell: Cell) {
+        if (_isGameFinished.value == true) return
         viewModelScope.launch {
             val currentPlayerType: PlayerType = boardRepository.getNextPlayer()
             boardRepository.updateCellSelection(cell, currentPlayerType).fold(
