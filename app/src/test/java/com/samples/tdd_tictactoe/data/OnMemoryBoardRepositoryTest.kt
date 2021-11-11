@@ -2,6 +2,8 @@ package com.samples.tdd_tictactoe.data
 
 import com.samples.tdd_tictactoe.common.MainCoroutineRule
 import com.samples.tdd_tictactoe.model.*
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
@@ -17,6 +19,7 @@ class OnMemoryBoardRepositoryTest {
 
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
+    private val winnerCheckHelper: WinnerCheckHelper = mockk()
 
 
     private lateinit var repository: OnMemoryBoardRepository
@@ -25,7 +28,7 @@ class OnMemoryBoardRepositoryTest {
 
     @Before
     fun before() {
-        repository = OnMemoryBoardRepository(boardSize)
+        repository = OnMemoryBoardRepository(winnerCheckHelper, boardSize)
     }
 
     @Test
@@ -81,6 +84,20 @@ class OnMemoryBoardRepositoryTest {
             repository.updateCellSelection(Cell(1, 0), OPlayer)
             repository.updateCellSelection(Cell(2, 0), XPlayer)
             Assert.assertTrue(repository.getNextPlayer() is OPlayer)
+        }
+
+    @Test
+    fun getGameStatus_returnWinGameStatus() =
+        runBlockingTest {
+            val cell = Cell(0, 2, XSelected)
+            coEvery {
+                winnerCheckHelper.checkForWinner(
+                    repository.getBoard().value,
+                    cell
+                )
+            } returns XPlayer
+            val winner = repository.getGameStatus(cell)
+            Assert.assertTrue(winner is GameState.Winner)
         }
 
 }

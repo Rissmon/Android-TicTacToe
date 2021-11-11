@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 
 class OnMemoryBoardRepository constructor(
+    private val winnerCheckHelper: WinnerCheckHelper,
     private val boardSize: Int
 ) : BoardRepository {
 
@@ -37,6 +38,24 @@ class OnMemoryBoardRepository constructor(
 
     override suspend fun getNextPlayer(): PlayerType {
         return nextPlayerType
+    }
+
+    /**
+     * Get the game status based on the game board cells.
+     * @param cell: The last selected cell. This will help to verify with adjacent cells to find the game status
+     * @see GameState
+     */
+    override suspend fun getGameStatus(cell: Cell): GameState {
+        return boardFlow.value.let { board ->
+            val gameState = winnerCheckHelper.checkForWinner(board, cell)?.let { winner ->
+                GameState.Winner
+            } ?: if (board.isCompleted()) {
+                GameState.Draw
+            } else {
+                GameState.Ongoing
+            }
+            gameState
+        }
     }
 
     /**
