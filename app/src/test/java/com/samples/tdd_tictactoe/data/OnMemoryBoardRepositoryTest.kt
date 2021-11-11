@@ -100,4 +100,18 @@ class OnMemoryBoardRepositoryTest {
             Assert.assertTrue(winner is GameState.Winner)
         }
 
+    @Test
+    fun getGameStatus_returnOngoingGameStatus() =
+        runBlockingTest {
+            val cell = Cell(0, 2, XSelected)
+            coEvery {
+                winnerCheckHelper.checkForWinner(
+                    repository.getBoard().value,
+                    cell
+                )
+            } returns null
+            val winner = repository.getGameStatus(cell)
+            Assert.assertTrue(winner is GameState.Ongoing)
+        }
+
 }
