@@ -10,6 +10,8 @@
     <string name="game_label">TicTacToe</string>
     <string name="board_screen_title">TIC TAC TOE</string>
     <string name="next_player_title_label">Next Player: %1s</string>
+    <string name="game_finish_with_winner">%1s wins!!</string>
+    <string name="game_finish_with_draw">This is a Draw!! More luck next time</string>
     <string name="restart_game_button">Restart the game</string>
     <string name="cell_item">Cell Item</string>
 </resources>
