@@ -59,6 +59,7 @@ class GameViewModelTest {
             coVerify(exactly = 1) {
                 boardRepository.updateCellSelection(givenCell, expectedPlayer)
             }
+            assertEquals(gameViewModel.isGameDraw.getOrAwaitValue(), false)
             assertEquals(gameViewModel.isGameFinished.getOrAwaitValue(), true)
             assertEquals(gameViewModel.gameResult.getOrAwaitValue(), playerData.playerX)
         }
@@ -78,6 +79,7 @@ class GameViewModelTest {
             coEvery { boardRepository.getGameStatus(givenCell) } returns GameState.Ongoing
             createGameViewModel()
             gameViewModel.onCellClicked(givenCell)
+            assertEquals(gameViewModel.isGameDraw.getOrAwaitValue(), false)
             assertEquals(gameViewModel.isGameFinished.getOrAwaitValue(), false)
         }
 
