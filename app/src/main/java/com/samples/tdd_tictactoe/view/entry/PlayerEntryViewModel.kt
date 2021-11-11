@@ -8,6 +8,8 @@ class PlayerEntryViewModel : ViewModel() {
     //Value need to mutable since there is databinding
     val playerX: MutableLiveData<String> = MutableLiveData(String.empty())
     val playerO: MutableLiveData<String> = MutableLiveData(String.empty())
+    val isPlayerFieldNullOrEmpty: Boolean
+        get() = playerX.value.isNullOrEmpty() || playerO.value.isNullOrEmpty()
 }
 
 
