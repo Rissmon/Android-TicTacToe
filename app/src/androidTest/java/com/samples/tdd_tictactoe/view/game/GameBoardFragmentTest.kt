@@ -148,6 +148,21 @@ class GameBoardFragmentTest {
     }
 
     @Test
+    fun recyclerViewCellSelection_hideNextPlayerTextViewIfGameIsFinished() {
+        launchFragment()
+        onRecyclerViewItemClick(0)
+        onRecyclerViewItemClick(3)
+        onRecyclerViewItemClick(6)
+        onRecyclerViewItemClick(4)
+        onRecyclerViewItemClick(1)
+        onRecyclerViewItemClick(7)
+        onRecyclerViewItemClick(5)
+        onRecyclerViewItemClick(2)
+        onRecyclerViewItemClick(8)
+        onView(withId(R.id.textViewNextPlayer)).check(matches(Matchers.not(ViewMatchers.isDisplayed())))
+    }
+
+    @Test
     fun restartButton_ValidateThePlayerReset() {
         launchFragment()
         onRecyclerViewItemClick(0)
