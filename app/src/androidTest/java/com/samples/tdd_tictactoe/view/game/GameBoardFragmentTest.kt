@@ -21,6 +21,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.lang.Thread.sleep
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4ClassRunner::class)
@@ -101,6 +102,18 @@ class GameBoardFragmentTest {
         onRecyclerViewItemClick(6)
         verifyNextPlayer(player.playerO)
     }
+
+    @Test
+    fun recyclerview_ValidateNextPlayer() {
+        launchFragment()
+        onRecyclerViewItemClick(0)
+        sleep(10)
+        verifyNextPlayer(player.playerO)
+        onRecyclerViewItemClick(3)
+        sleep(10)
+        verifyNextPlayer(player.playerX)
+    }
+
 
     private fun launchFragment() = launchFragmentInHiltContainer<GameBoardFragment>(
         fragmentArgs,
