@@ -27,8 +27,15 @@ class WinnerCheckHelper constructor(private val dispatcher: CoroutineDispatcher)
         }
 
     private fun Board.checkLineInNeighboursForCell(cell: Cell) =
-        checkLineDiagonals(cell)
+        checkLineHorizontally(cell) || checkLineDiagonals(cell)
 
+    private fun Board.checkLineHorizontally(cell: Cell): Boolean {
+        val selectedCellsInRow = cells.filter { it.row == cell.row && it.state == cell.state }
+        if (selectedCellsInRow.size > 2) {
+            return true
+        }
+        return false
+    }
 
     private fun Board.checkLineDiagonals(cell: Cell): Boolean {
         val boardSideSize = sqrt(cells.size.toDouble()).toInt()

@@ -20,6 +20,19 @@ class WinnerCheckHelperTest {
     private val winnerCheckHelper = WinnerCheckHelper(testDispatcher)
 
     @Test
+    fun checkForWinner_returnsXPlayerIfFirstRowHasXSelected() =
+        runBlockingTest {
+            val board = Board(cells = cleanBoardCells.toMutableList().apply {
+                set(0, Cell(0, 0, XSelected))
+                set(3, Cell(0, 1, OSelected))
+                set(1, Cell(1, 0, XSelected))
+                set(4, Cell(1, 1, OSelected))
+                set(2, Cell(2, 0, XSelected))
+            })
+            assertEquals(XPlayer, winnerCheckHelper.checkForWinner(board, Cell(2, 0, XSelected)))
+        }
+
+    @Test
     fun checkForWinner_returnsOPlayerIfRightDiagonalHasOSelected() =
         runBlockingTest {
             val board = Board(cells = cleanBoardCells.toMutableList().apply {
