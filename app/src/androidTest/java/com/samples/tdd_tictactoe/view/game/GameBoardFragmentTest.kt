@@ -32,9 +32,7 @@ class GameBoardFragmentTest {
     var appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
     private val player = PlayerData(PLAYER1, PLAYER2)
-    private val fragmentArgs = bundleOf(
-        "playerData" to player,
-    )
+    private val fragmentArgs = bundleOf("playerData" to player,)
     private val boardSize = 3
     private val totalCell = boardSize * boardSize
 
@@ -79,10 +77,7 @@ class GameBoardFragmentTest {
 
     @Test
     fun recyclerViewCellSelection_displayWinnerWhenFirstColumnIsSelectedByXPlayer() {
-        launchFragmentInHiltContainer<GameBoardFragment>(
-            fragmentArgs,
-            themeResId = R.style.ThemeTicTacToe
-        )
+        launchFragment()
         onRecyclerViewItemClick(0)
         onRecyclerViewItemClick(4)
         onRecyclerViewItemClick(3)
@@ -93,10 +88,7 @@ class GameBoardFragmentTest {
 
     @Test
     fun recyclerViewCellSelection_displayWinnerWhenFirstColumnIsSelectedBy0Player() {
-        launchFragmentInHiltContainer<GameBoardFragment>(
-            fragmentArgs,
-            themeResId = R.style.ThemeTicTacToe
-        )
+        launchFragment()
         onRecyclerViewItemClick(4)
         onRecyclerViewItemClick(0)
         onRecyclerViewItemClick(7)
