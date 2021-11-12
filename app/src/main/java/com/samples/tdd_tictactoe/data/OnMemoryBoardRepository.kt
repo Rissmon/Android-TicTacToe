@@ -75,6 +75,7 @@ class OnMemoryBoardRepository @Inject constructor(
                 )
             )
         }
+        nextPlayerType=XPlayer
         return Board(cellList)
     }
 

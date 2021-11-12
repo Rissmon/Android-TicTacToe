@@ -68,6 +68,15 @@ class OnMemoryBoardRepositoryTest {
         }
 
     @Test
+    fun clearCellSelection_willChangePlayerToXPlayer() =
+        runBlockingTest {
+            repository.updateCellSelection(Cell(0, 0), XPlayer)
+            repository.clearCellSelection()
+            val board = repository.getBoard().first()
+            assertEquals(repository.getNextPlayer(),XPlayer)
+        }
+
+    @Test
     fun getNextPlayer_returningXPlayer() =
         runBlockingTest {
             repository.updateCellSelection(Cell(0, 0), XPlayer)
